@@ -1,0 +1,23 @@
+[build-system]
+requires = ["maturin>=1.5,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "poker-study"
+version = "0.1.0"
+description = "Offline desktop application for studying preflop and postflop poker strategy"
+requires-python = ">=3.10"
+dependencies = ["numpy"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+study = ["pywebview"]
+study-build = ["pywebview", "pyinstaller"]
+
+[tool.maturin]
+# Rust crate lives under rust_core/ rather than the repo root.
+manifest-path = "rust_core/Cargo.toml"
+# Compiled extension is placed inside the pure-Python package as pokerlab.poker_core
+module-name = "pokerlab.poker_core"
+python-source = "."
+features = ["pyo3/extension-module"]
